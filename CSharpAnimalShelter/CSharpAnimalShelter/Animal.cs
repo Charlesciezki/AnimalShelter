@@ -12,6 +12,7 @@ namespace CSharpAnimalShelter
         public double adoptCost;
         public bool hasShots;
         public string name;
+        public Cage TheCage = new Cage();
         public Animal()
         {
             

@@ -15,16 +15,24 @@ namespace CSharpAnimalShelter
             
         }
 
-        public void AddAnimal()
+        public void AddCat()
         {
             
         }
 
-        public void RemoveAnimal()
+        public void RemoveCat()
+        {
+            
+        }
+        public void AddDog()
         {
             
         }
 
+        public void RemoveDog()
+        {
+            
+        }
         public void GiveShots()
         {
             
