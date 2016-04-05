@@ -8,14 +8,17 @@ namespace CSharpAnimalShelter
 {
     public class AdoptionCanidate
     {
-        public string name;
-        public string address;
-        public string DOB;
-        public bool isApproved;
+        public string Name;
+        public string Address;
+        public string DateOfBirth;
+        public bool IsApproved;
 
-        public AdoptionCanidate()
+        public AdoptionCanidate(string name, string address, string DOB, bool isapproved)
         {
-            
+            Name = name;
+            Address = address;
+            DateOfBirth = DOB;
+            IsApproved = isapproved;
         }
 
     }
