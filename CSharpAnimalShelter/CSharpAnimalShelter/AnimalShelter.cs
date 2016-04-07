@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 
@@ -13,9 +14,13 @@ namespace CSharpAnimalShelter
         public List<Animal> listOfCats = new List<Animal>();
         public List<Animal> listOfDogs = new List<Animal>();
         public List<AdoptionCanidate> ListOfAdoptionCanidates = new List<AdoptionCanidate>();
+        public List<Animal> AdoptedAnimalsList = new List<Animal>();
+        public List<string> animalsWithAdoptor = new List<string>();
         Random random = new Random();
         public bool hasHadShot;
         public bool hasBeenFed;
+        public double AnimalShelterFunds = 0;
+        public string adoptorAndAnimals;
 
         public AnimalShelter()
         {
@@ -23,8 +28,185 @@ namespace CSharpAnimalShelter
             listOfCages.Add(listOfDogs);
         }
 
+        public void SpawnAdoptors()
+        {
+            List<string> adoptorsNames = new List<string> { "Tyler", "Charles", "David", "Paul" };
+            List<string> adoptorsAddresses = new List<string> {"Waukesha", "Mukwonago", "Milwaukee", "Jackson"};
+            List<string> adoptorsDOB = new List<string> { "Jan 23 1993", "Jun 2 1984", "Nov 11 1921", "Dec 25 2000"};
+            string name;
+            string address;
+            string dob;
+            bool isapproved = false;
+            for (int i = 0; i < 5; i++)
+            {
+
+                int nameNumber = random.Next(0, 4);
+                if (nameNumber == 0)
+                {
+                    name = adoptorsNames[0];
+                }
+                else if (nameNumber == 1)
+                {
+                    name = adoptorsNames[1];
+                }
+                else if (nameNumber == 2)
+                {
+                    name = adoptorsNames[2];
+                }
+                else 
+                {
+                    name = adoptorsNames[3];
+                }
+
+                int addressNumber = random.Next(0, 4);
+                if (addressNumber == 0)
+                {
+                    address = adoptorsAddresses[0];
+                }
+                else if (addressNumber == 1)
+                {
+                    address = adoptorsAddresses[1];
+                }
+                else if (addressNumber == 2)
+                {
+                    address = adoptorsAddresses[2];
+                }
+                else 
+                {
+                    address = adoptorsAddresses[3];
+                }
+
+                int dateNumber = random.Next(0, 4);
+                if (dateNumber == 0)
+                {
+                    dob = adoptorsDOB[0];
+                }
+                else if (dateNumber == 1)
+                {
+                    dob = adoptorsDOB[1];
+                }
+                else if (dateNumber == 2)
+                {
+                    dob = adoptorsDOB[2];
+                }
+                else
+                {
+                    dob = adoptorsDOB[3];
+                }
+                AdoptionCanidate adoptor = new AdoptionCanidate(name, address, dob, isapproved);
+                ListOfAdoptionCanidates.Add(adoptor);
+                
+            }
+        }
+
+        public void SpawnCats()
+        {
+            List<string> catNames = new List<string> {"Paul", "Mittens", "Smudge", "Fifi-The Destroyer of Worlds"};
+            List<string> catBreed = new List<string> {"Tabby", "Persian", "Ragdoll", "Siamese" };
+
+            bool hasshots = false;
+            bool isfed = false;
+            string name;
+            string breed;
+            for (int i = 0; i < 5; i++)
+            {
+                int age = random.Next(1, 9);
+                double adoptCost = random.Next(100, 351);
+                int randomCatName = random.Next(0, 4);
+                if (randomCatName == 0)
+                {
+                    name = catNames[0];
+                }
+                else if (randomCatName == 1)
+                {
+                    name = catNames[1];
+                }
+                else if (randomCatName == 2)
+                {
+                    name = catNames[2];
+                }
+                else
+                {
+                    name = catNames[3];
+                }
+
+                int randomCatBreed = random.Next(0, 4);
+                if (randomCatBreed == 0)
+                {
+                    breed = catBreed[0];
+                }
+                else if (randomCatBreed == 1)
+                {
+                    breed = catBreed[1];
+                }
+                else if (randomCatBreed == 2)
+                {
+                    breed = catBreed[2];
+                }
+                else
+                {
+                    breed = catBreed[3];
+                }
+                CatClass Kitty = new CatClass(age, adoptCost, hasshots, isfed, name, breed);
+                listOfCages[0].Add(Kitty);
+            }
+        }
+
+        public void SpawnDogs()
+        {
+            List<string> dogNames = new List<string> {"Abby", "Peter", "Oreo", "Sparkles-The Breaker of Mountains"};
+            List<string> dogBreeds = new List<string> {"Corgi", "Pug", "Beagle", "Russian Mountain Dog"};
+            bool hasshots = false;
+            bool isfed = false;
+            string name;
+            string breed;
+            for (int i = 0; i < 5; i++)
+            {
+                int age = random.Next(1, 9);
+                double adoptCost = random.Next(100, 951);
+                int nameSelect = random.Next(0, 4);
+                if (nameSelect == 0)
+                {
+                    name = dogNames[0];
+                } else if (nameSelect == 1)
+                {
+                    name = dogNames[1];
+                } else if (nameSelect == 2)
+                {
+                    name = dogNames[2];
+                }
+                else
+                {
+                    name = dogNames[3];
+                }
+
+                int breedSelect = random.Next(0, 4);
+                if (breedSelect == 0)
+                {
+                    breed = dogBreeds[0];
+                } else if (breedSelect == 1)
+                { 
+                    breed = dogBreeds[1];
+                } else if (breedSelect == 2)
+                {
+                    breed = dogBreeds[2];
+                }
+                else
+                {
+                    breed = dogBreeds[3];
+                }
+                DogClass Doggie = new DogClass(age, adoptCost, hasshots, isfed, name, breed);
+                listOfCages[1].Add(Doggie);
+            }
+            
+        }
+        public void CheckAnimalShelterFunds()
+        {
+            Console.WriteLine(AnimalShelterFunds);
+        }
         public int ChooseAnimalToAdd()
         {
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("Enter 1 to add a dog");
             Console.WriteLine("Enter 2 to add a cat");
             int whichAnimal;
@@ -50,8 +232,9 @@ namespace CSharpAnimalShelter
 
         public int ChooseAnimalToRemove()
         {
-            Console.WriteLine("Enter 1 to add a dog");
-            Console.WriteLine("Enter 2 to add a cat");
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("Enter 1 to remove a dog");
+            Console.WriteLine("Enter 2 to remove a cat");
             int whichAnimal;
             bool MistakeCatcher = Int32.TryParse(Console.ReadLine(), out whichAnimal);
             if (MistakeCatcher == false)
@@ -104,6 +287,7 @@ namespace CSharpAnimalShelter
 
         public void AddCat()
         {
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("What's the cats name?");
             string catName = Console.ReadLine();
             Console.WriteLine("And the breed of cat?");
@@ -120,11 +304,17 @@ namespace CSharpAnimalShelter
 
         public void RemoveCat()
         {
-
+            CheckCatSystem();
+            Console.WriteLine("Enter the ID of the cat you wish to remove!");
+            int catID = Convert.ToInt32(Console.ReadLine());
+            listOfCages[0].RemoveAt(catID);
+            Console.WriteLine("The cat list will reflect the changes made!");
+            CheckCatSystem();
         }
 
         public void AddDog()
         {
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("What's the dogs name?");
             string dogName = Console.ReadLine();
             Console.WriteLine("And the breed of dog?");
@@ -141,11 +331,18 @@ namespace CSharpAnimalShelter
 
         public void RemoveDog()
         {
-
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            CheckDogSystem();
+            Console.WriteLine("Enter the ID of the dog you wish to remove!");
+            int dogID = Convert.ToInt32(Console.ReadLine());
+            listOfCages[1].RemoveAt(dogID);
+            Console.WriteLine("The dog list will reflect the changes made!");
+            CheckDogSystem();
         }
 
         public int GiveShots()
         {
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Enter 1 to give shots to all cats that need them");
             Console.WriteLine("Enter 2 to give shots to all dogs that need them");
             int ShotsChoice;
@@ -194,6 +391,7 @@ namespace CSharpAnimalShelter
 
         public int FeedAnimal()
         {
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Enter 1 to feed all cats that are hungry");
             Console.WriteLine("Enter 2 to feed all dogs that are hungry");
             int FeedChoice;
@@ -242,6 +440,7 @@ namespace CSharpAnimalShelter
 
         public int CheckTheSystem()
         {
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("Which system would you like to check?");
             Console.WriteLine("Enter 1 for cats, and 2 for dogs!");
             int systemChoice;
@@ -266,23 +465,29 @@ namespace CSharpAnimalShelter
 
         public void CheckCatSystem()
         {
+            int i = 0;
+            Console.WriteLine("The number before the cats name is the cat ID");
             foreach (var catName in listOfCats)
             {
-                Console.WriteLine(catName.Name);
-                
+                Console.WriteLine(i + " " + catName.Name);
+                i++;
             }
         }
 
         public void CheckDogSystem()
         {
+            int i = 0;
+            Console.WriteLine("The number before the dogs name is the dog ID");
             foreach (var dogName in listOfDogs)
-            {
-                Console.WriteLine(dogName.Name);
+            {                                
+                Console.WriteLine(i + " " + dogName.Name);
+                i++;
             }
         }
 
         public void FillOutAdoptionForm()
         {
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Whats your name?");
             string name = Console.ReadLine();
             Console.WriteLine("Whats your full address?");
@@ -294,25 +499,100 @@ namespace CSharpAnimalShelter
             ListOfAdoptionCanidates.Add(Adoptor);
         }
 
-        public void CheckAdoptorList()
+        public int CheckAdoptorList()
         {
+            int i = 0;
             Console.WriteLine("The number before their name is their adoptor ID!");
             foreach (var adoptors in ListOfAdoptionCanidates)
-            {
-                int i = 0;
+            {                
                 Console.WriteLine(i + " " + adoptors.Name);
                 i++;
             }
+            return 1;
         }
 
-        public void ApproveAdoption()
+        public int ApproveAdoption()
         {
-            
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Would you like to veiw the adoptors and their IDs?");
+            Console.WriteLine("Enter 1 for yes and enter 2 for no!");
+            int seeAdoptors = Convert.ToInt32(Console.ReadLine());
+            if (seeAdoptors == 1)
+            {
+                CheckAdoptorList();
+            }
+            Console.WriteLine("Please enter the adoptor ID of the person you wish to approve");
+            int AdoptorIDApprove = Convert.ToInt32(Console.ReadLine());
+            ListOfAdoptionCanidates[AdoptorIDApprove].IsApproved = true;
+            Console.WriteLine(ListOfAdoptionCanidates[AdoptorIDApprove].Name + " has been approved!");
+            return 1;
         }
 
-        public void AdoptAnimal()
+        public int AdoptAnimal()
         {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Which kind of animal would you like to adopt?");
+            Console.WriteLine("Enter 1 for cat and enter 2 for dog");
+            int whichAnimal = Convert.ToInt32(Console.ReadLine());
+            if (whichAnimal == 1)
+            {
+                AdoptaCat();
+            } else if (whichAnimal == 2)
+            {
+                AdoptaDog();
+            }
+            else
+            {
+                return AdoptAnimal();
+            }
+            return 1;
+        }
 
+        public int AdoptaCat()
+        {
+            CheckAdoptorList();
+            Console.WriteLine("Who is adopting?");
+            int adoptor = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("You've selected " + ListOfAdoptionCanidates[adoptor].Name);
+
+            CheckCatSystem();
+            Console.WriteLine("Choose the ID of the cat you wish to adopt");
+            int AdoptCat = Convert.ToInt32(Console.ReadLine());
+
+
+            adoptorAndAnimals = ListOfAdoptionCanidates[adoptor].Name + " adopted " + listOfCages[0][AdoptCat].Name;
+            Console.WriteLine(adoptorAndAnimals);
+            animalsWithAdoptor.Add(adoptorAndAnimals);
+
+            AdoptedAnimalsList.Add(listOfCages[0][AdoptCat]);
+            AnimalShelterFunds = AnimalShelterFunds + listOfCages[0][AdoptCat].AdoptCost;
+            listOfCages[0].RemoveAt(AdoptCat);
+            Console.WriteLine("The cat system will reflect the changes made!");
+            CheckCatSystem();
+            return 1;
+        }
+
+        public int AdoptaDog()
+        {
+            CheckAdoptorList();
+            Console.WriteLine("Who is adopting?");
+            int adoptor = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("You've selected " + ListOfAdoptionCanidates[adoptor].Name);
+
+            CheckDogSystem();
+            Console.WriteLine("Choose the ID of the dog you wish to adopt!");
+            int AdoptDog = Convert.ToInt32(Console.ReadLine());
+
+            adoptorAndAnimals = ListOfAdoptionCanidates[adoptor].Name + " adopted " + listOfCages[1][AdoptDog].Name;
+            Console.WriteLine(adoptorAndAnimals);
+            animalsWithAdoptor.Add(adoptorAndAnimals);
+
+            AdoptedAnimalsList.Add(listOfCages[1][AdoptDog]);
+            AnimalShelterFunds = AnimalShelterFunds + listOfCages[1][AdoptDog].AdoptCost;
+            listOfCages[1].RemoveAt(AdoptDog);
+            Console.WriteLine("The dog system will reflect the changes made!");
+            CheckDogSystem();
+            return 1;
         }
     }
 }
